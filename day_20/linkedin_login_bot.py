@@ -22,8 +22,8 @@ def linkedin_func():
         login = driver.find_element(By.XPATH, '//button[@type = \'submit\']')
 
         # Send login credentials to the form
-        username.send_keys('mcnaynes@up.edu.ph')
-        password.send_keys('Oe561uz3ax01')
+        username.send_keys('')
+        password.send_keys('')
         login.click()
 
     except Exception as e:

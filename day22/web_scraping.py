@@ -214,26 +214,31 @@ soup = BeautifulSoup(content, 'html.parser')
 json_data = []
 table = soup.find(attrs={'class':'wikitable'})
 columns = get_column_names(table)
+ 
 for tr in exclude_none_tags(table.tr.next_siblings):
 
     row_data = []
     for column_index, td in enumerate(exclude_none_tags(tr.tr.children)):
         if column_index == 0:
             row_data.append(td.a.string)
+        
         elif column_index == 1:
             row_data.append(td.img['src'])
+        
         elif column_index == 2 \
             or column_index == 3:
             if has_span_with_date_class(td):
                 row_data.append(join_data_strings(td.td.span.children, ' '))
             else:
                 row_data.append(join_data_strings(td.td.children, ' '))
+        
         elif column_index == 4 \
             or column_index == 5:
             row_data.append(create_data_list(td.td.children))
+        
         elif column_index == 6:
             row_data.append(create_data_list(td.td.children, ' '))
     
-    json_data.append(dict(zip(columns,row_data)))
+    json_data.append(dict(zip(columns, row_data)))
 
 print(json.dumps(json_data))
