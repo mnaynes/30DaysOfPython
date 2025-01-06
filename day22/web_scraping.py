@@ -164,7 +164,7 @@ y = iris.data.targets
 print(iris.metadata) 
   
 # variable information 
-print(iris.variables) 
+print(iris.variables)
 
 ############################################################################
 
@@ -193,7 +193,7 @@ def has_span_with_date_class(tag):
 
 def cleanup_data(data):
     return [ item.replace('\xa0', ' ') for item in data \
-                if not item.isspace() and item != '']
+                if not item.isspace() and item != '' ]
 
 def create_data_list(tags, delimiter=''):
     data = []
@@ -217,8 +217,7 @@ columns = get_column_names(table)
 for tr in exclude_none_tags(table.tr.next_siblings):
 
     row_data = []
-    column_index = 0
-    for td in exclude_none_tags(tr.tr.children):
+    for column_index, td in enumerate(exclude_none_tags(tr.tr.children)):
         if column_index == 0:
             row_data.append(td.a.string)
         elif column_index == 1:
@@ -234,8 +233,6 @@ for tr in exclude_none_tags(table.tr.next_siblings):
             row_data.append(create_data_list(td.td.children))
         elif column_index == 6:
             row_data.append(create_data_list(td.td.children, ' '))
-        
-        column_index += 1
     
     json_data.append(dict(zip(columns,row_data)))
 
