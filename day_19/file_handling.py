@@ -30,7 +30,7 @@ def most_spoken_language(filename, rank_count):
     file.close()
 
     language_count = get_countries_languages_count(countries_data)
-    language_count.sort(reverse=True)
+    # language_count.sort(reverse=True)
     top_ranked_values = sorted(list(set(map(lambda lc: lc[0], language_count))), reverse=True)
     
     ranked_list = []
@@ -44,7 +44,8 @@ def get_languages(data):
     return data['languages']
 
 def get_countries_languages_count(data):
-    countries_languages = [ language for country in list(map(get_languages, data)) for language in country ]
+    countries_languages = [ language for country_languages in list(map(get_languages, data))
+                                        for language in country_languages ]
     languages = set(countries_languages)
     language_count = list(map(countries_languages.count, languages))
 
@@ -59,7 +60,7 @@ def most_populated_countries(filename, rank_count):
     file.close()
 
     country_population = get_countries_population(countries_data)
-    country_population = sorted(country_population, key=lambda x:(x['population']), reverse=True)
+    # country_population = sorted(country_population, key=lambda x:(x['population']), reverse=True)
 
     top_ranked_values = list(set(map(lambda dict: dict['population'], country_population)))
     top_ranked_values.sort(reverse=True)
